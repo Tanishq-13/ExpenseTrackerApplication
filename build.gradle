@@ -1,0 +1,58 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.2'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter
+	implementation 'org.springframework.boot:spring-boot-starter-actuator' // Actuator for monitoring
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA for database interaction
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' // OAuth2 Resource Server
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Security starter
+
+	// Spring Cloud
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap:4.1.1' // Spring Cloud Bootstrap
+
+	// JSON Web Token (JWT) handling
+	implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.12.5'
+	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
+	// Database and ORM
+	implementation 'mysql:mysql-connector-java:8.0.33' // MySQL connector
+	implementation 'org.modelmapper:modelmapper:3.2.0' // ModelMapper for object mapping
+
+	// Lombok
+	compileOnly 'org.projectlombok:lombok:1.18.30' // Lombok for annotations
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+	// Testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test' // Test starter
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit platform launcher
+	testImplementation 'junit:junit:4.13.2' // JUnit 4 (if needed)
+
+	// Guava
+	implementation 'com.google.guava:guava:32.1.2-jre' // Latest Guava library
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
