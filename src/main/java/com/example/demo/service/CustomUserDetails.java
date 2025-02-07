@@ -61,4 +61,10 @@ public class CustomUserDetails extends UserInfo implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
+    @Override
+    public boolean isEnabled() {
+//        System.out.println("Returning enabled status: " + userInfo.isEnabled()); // Debug log
+        return true;
+    }
 }

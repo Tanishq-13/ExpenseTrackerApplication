@@ -1,9 +1,7 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,6 +17,12 @@ public class UserInfo {
     private String userId;
     private String username;
     private String password;
+
+    // Getters and Setters
+    @Setter
+    @Getter
+    @Column(nullable = false)
+    private boolean enabled = true; // Ensure this is included
 
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(

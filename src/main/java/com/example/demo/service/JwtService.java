@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -23,7 +24,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    public static final String SECRET="secret";
+    public static final String SECRET="357638792F423F4428472B4B6250655368566D597133743677397A2443264629";
 
     //1. I gotta extract username so i got a token and I made a claim out of it
     public String extractUsername(String token) {
@@ -65,7 +66,7 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    private Boolean validateToken(String token, UserDetails user) {
+    public Boolean validateToken(String token, UserDetails user) {
         final String username=extractUsername(token);
         return user.getUsername().equals(username) && !isTokenExpired(token);
     }
@@ -74,9 +75,13 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60*1))
+                .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 
+    }
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        return createToken(claims, username);
     }
 
 }

@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.2'
+	id 'org.springframework.boot' version '3.2.2'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -21,7 +21,8 @@ dependencies {
 	// Spring Boot Starters
 	implementation 'org.springframework.boot:spring-boot-starter-web' // Web starter
 	implementation 'org.springframework.boot:spring-boot-starter-actuator' // Actuator for monitoring
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA for database interaction
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	// JPA for database interaction
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server' // OAuth2 Resource Server
 	implementation 'org.springframework.boot:spring-boot-starter-security' // Security starter
 
@@ -37,6 +38,7 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.33' // MySQL connector
 	implementation 'org.modelmapper:modelmapper:3.2.0' // ModelMapper for object mapping
 
+	implementation 'org.springframework.kafka:spring-kafka'
 	// Lombok
 	compileOnly 'org.projectlombok:lombok:1.18.30' // Lombok for annotations
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'

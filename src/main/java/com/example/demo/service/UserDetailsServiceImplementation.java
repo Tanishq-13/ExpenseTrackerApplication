@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,12 +33,20 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserInfo userInfo = userRepository.findByUsername(username);
-        if (userInfo == null) {
-            throw new UsernameNotFoundException(username);
 
+        if (userInfo == null) {
+            throw new UsernameNotFoundException("User not found: " + username);
         }
+
+        System.out.println("User found: " + username + ", Enabled: " + userInfo.isEnabled()); // Debug log
+
+        if (!userInfo.isEnabled()) {
+            throw new DisabledException("User is disabled: " + username);
+        }
+
         return new CustomUserDetails(userInfo);
     }
+
 
     public UserInfo checkIfUserExists(UserInfoDto uid) {
         return userRepository.findByUsername(uid.getUsername());
@@ -49,7 +58,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
             return false;
         }
         String userId= UUID.randomUUID().toString();
-        userRepository.save(new UserInfo(userId,uid.getUsername(),uid.getPassword(),new HashSet<>()));
+        userRepository.save(new UserInfo(userId,uid.getUsername(),uid.getPassword(),true,new HashSet<>()));
         return true;
     }
 }

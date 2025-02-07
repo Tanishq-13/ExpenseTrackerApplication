@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.entities.UserInfo;
-import org.apache.catalina.User;
+//import auth
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
