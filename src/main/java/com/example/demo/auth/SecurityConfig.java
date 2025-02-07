@@ -1,5 +1,6 @@
 package com.example.demo.auth;
 
+import com.example.demo.eventProducer.UserInfoProducer;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserDetailsServiceImplementation;
 import lombok.Data;
@@ -34,10 +35,13 @@ public class SecurityConfig {
     @Autowired
     private final UserDetailsServiceImplementation userDetailsService;
 
+    @Autowired
+    private final UserInfoProducer userInfoProducer;
+
     //we will make constructor because spring security service needs everything
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository,PasswordEncoder passwordEncoder) {
-        return new UserDetailsServiceImplementation(userRepository,passwordEncoder);
+        return new UserDetailsServiceImplementation(userRepository,passwordEncoder,userInfoProducer);
         //spring ka sec  config jab bhi userdetailservice ko call kregi
         //jo ki h loadbyusername to wo call hoga aur usme jo user repo aur passwordencoder hai
         //use hoga wo ham is class se pass kr rhe hai
