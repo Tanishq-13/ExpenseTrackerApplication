@@ -41,7 +41,7 @@ public class AuthController {
             Boolean isSignUped = userDetailsService.signUp(userInfoDto);
             if (Boolean.FALSE.equals(isSignUped)) {
                 return new ResponseEntity<>("Already Exist", HttpStatus.BAD_REQUEST);
-            }
+            }//nj
 
             RefreshToken refreshToken = refreshTokenService.createRefreshToken(userInfoDto.getUsername());
             String jwtToken = jwtService.generateToken(userInfoDto.getUsername());
