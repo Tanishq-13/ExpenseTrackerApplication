@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entities.UserInfo;
+import com.example.demo.eventProducer.UserInfoEvent;
 import com.example.demo.eventProducer.UserInfoProducer;
 import com.example.demo.model.UserInfoDto;
 import com.example.demo.repository.UserRepository;
@@ -75,7 +76,18 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
         //fir bytes ko deserialize
         log.debug("Entering in loadUserByUsername Method...");
 
-        userInfoProducer.sendEventToKafka(uid);
+        userInfoProducer.sendEventToKafka(userInfoEventToPublish(uid,userId));
         return true;
+    }
+
+    private UserInfoEvent userInfoEventToPublish(UserInfoDto userInfo,String userId) {
+        return UserInfoEvent.builder().
+                userId(userId)
+                .firstName(userInfo.getFirstName())
+                .lastName(userInfo.getLastName())
+                .email(userInfo.getEmail())
+                .phoneNumber(userInfo.getPhoneNumber())
+                .build();
+
     }
 }

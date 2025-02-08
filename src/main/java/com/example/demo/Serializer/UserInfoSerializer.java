@@ -1,6 +1,7 @@
 package com.example.demo.Serializer;
 
 import com.example.demo.entities.UserInfo;
+import com.example.demo.eventProducer.UserInfoEvent;
 import com.example.demo.service.UserDetailsServiceImplementation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.io.SerializationException;
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.io.OutputStream;
 
 
-public class UserInfoSerializer implements Serializer<UserInfo> {
+public class UserInfoSerializer implements Serializer<UserInfoEvent> {
 
     private static final Logger log = LoggerFactory.getLogger(UserInfoSerializer.class);
 
@@ -26,7 +27,7 @@ public class UserInfoSerializer implements Serializer<UserInfo> {
 
 
     @Override
-    public byte[] serialize(String s, UserInfo userInfo) {
+    public byte[] serialize(String s, UserInfoEvent userInfo) {
         byte[] bytes = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {

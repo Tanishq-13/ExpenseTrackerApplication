@@ -31,12 +31,12 @@ public class UserInfoProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendEventToKafka(UserInfoDto eventData) {
+    public void sendEventToKafka(UserInfoEvent eventData) {
         // Convert DTO to JSON
-        Message<UserInfoDto> message = MessageBuilder.withPayload(eventData)
+        Message<UserInfoEvent> message = MessageBuilder.withPayload(eventData)
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME)
                 .build();
-        log.info("Sending message to topic {}", TOPIC_NAME);
+//        log.info("Sending message to topic {}", TOPIC_NAME);
         kafkaTemplate.send(message);
     }
 }
